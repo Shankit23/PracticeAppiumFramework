@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+	<listeners>
+		<listener class-name="com.qa.listeners.TestListener"/>
+	</listeners>
+  <test name="Test">
+	  <parameter name= "emulator" value= "True"/>
+	  <parameter name="platformName" value="Android"/>
+	  <parameter name="platformVersion" value="12.0"/>
+	  <parameter name="udid" value="emulator-5554"/>
+    <classes>
+   <class name="com.qa.test.LoginTests"/>
+  <methods>
+		  <include name = "invalidUserName"/>
+	  </methods>
+	 <!-- <class name="com.qa.test.ProductTests"/>-->
+<!--     <methods>-->
+<!--		  <include name = "validateProductOnProductDetailsPage"/>-->
+<!--	  </methods>-->
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
