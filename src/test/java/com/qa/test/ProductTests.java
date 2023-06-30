@@ -18,17 +18,19 @@ import com.qa.pages.LoginPage;
 import com.qa.pages.ProductDetailsPage;
 import com.qa.pages.ProductsPage;
 import com.qa.pages.SettingsPage;
+import com.qa.utils.TestUtils;
 
 public class ProductTests extends MenuPage {
 	LoginPage loginPage;
 	ProductsPage productsPage;
 	ProductDetailsPage productDetailsPage;
 	SettingsPage settingsPage;
-	InputStream datais;
 	JSONObject loginUsers;
+	TestUtils utils = new TestUtils();
 
 	@BeforeClass
 	public void beforeClass() throws Exception {
+		InputStream datais = null;
 		try {
 			String dataFileName = "data/LoginUsers.json";
 			datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
@@ -53,7 +55,7 @@ public class ProductTests extends MenuPage {
 	@BeforeMethod
 	public void beforeMethod(Method m) {
 		loginPage = new LoginPage();
-		System.out.println("\n" + "****** starting test: " + m.getName() + "*******" + "\n");
+		utils.log("\n" + "****** starting test: " + m.getName() + "*******" + "\n");
 		productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"),
 				loginUsers.getJSONObject("validUser").getString("password"));
 	}
@@ -69,10 +71,10 @@ public class ProductTests extends MenuPage {
 		SoftAssert sa = new SoftAssert();
 
 		String SLBTitle = productsPage.getSLBTitle();
-		sa.assertEquals(SLBTitle, strings.get("products_page_slb_title"));
+		sa.assertEquals(SLBTitle, getStrings().get("products_page_slb_title"));
 
 		String SLBPrice = productsPage.getSLBPrice();
-		sa.assertEquals(SLBPrice, strings.get("products_page_slb_price"));
+		sa.assertEquals(SLBPrice, getStrings().get("products_page_slb_price"));
 
 //		settingsPage = productsPage.pressSettingsBtn();
 //		loginPage = settingsPage.pressLogoutBtn();
@@ -87,15 +89,15 @@ public class ProductTests extends MenuPage {
 		productDetailsPage = productsPage.pressSLBTitle();
 
 		String SLBTitle = productDetailsPage.getSLBTitle();
-		sa.assertEquals(SLBTitle, strings.get("products_details_page_slb_title"));
+		sa.assertEquals(SLBTitle, getStrings().get("products_details_page_slb_title"));
 
 		String SLBTxt = productDetailsPage.getSLBTxt();
-		sa.assertEquals(SLBTxt, strings.get("products_details_page_slb_txt"));
+		sa.assertEquals(SLBTxt, getStrings().get("products_details_page_slb_txt"));
 		
 		Thread.sleep(3000);
 		
 		String SLBPrice = productDetailsPage.scrollToSLBPriceAnsGetSLBPrice();
-		sa.assertEquals(SLBPrice, strings.get("products_details_page_slb_price"));
+		sa.assertEquals(SLBPrice, getStrings().get("products_details_page_slb_price"));
 
 		productsPage = productDetailsPage.pressBackToProductsBtn();
 
@@ -104,6 +106,6 @@ public class ProductTests extends MenuPage {
 //		loginPage = settingsPage.pressLogoutBtn();
 
 		sa.assertAll();
-		System.out.println("test case passed");
+		utils.log("test case passed");
 	}
 }

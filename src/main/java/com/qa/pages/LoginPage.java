@@ -6,8 +6,10 @@ import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 
 import com.qa.BaseTest;
+import com.qa.utils.TestUtils;
 
 public class LoginPage extends BaseTest {
+	TestUtils utils = new TestUtils();
 	@AndroidFindBy(accessibility = "test-Username")
 	@iOSXCUITFindBy(id = "test-Username")
 	private WebElement usernameTxtFld;
@@ -26,17 +28,20 @@ public class LoginPage extends BaseTest {
 
 	public LoginPage enterUserName(String username) {
 		clear(usernameTxtFld);
+		utils.log("login with " + username);
 		sendKeys(usernameTxtFld, username);
 		return this;
 	}
 
 	public LoginPage enterPassword(String password) {
 		clear(passwordTxtFld);
+		utils.log("Entering Password " + password);
 		sendKeys(passwordTxtFld, password);
 		return this;
 	}
 
 	public ProductsPage pressLoginBtn() {
+		utils.log("Press Login button");
 		click(loginBtn);
 		return new ProductsPage();
 	}
@@ -48,7 +53,9 @@ public class LoginPage extends BaseTest {
 	}
 
 	public String getErrTxt() {
-		return getText(errTxt);
+		String err = getText(errTxt);
+		utils.log("error text is - " + err);
+		return err;
 	}
 
 }

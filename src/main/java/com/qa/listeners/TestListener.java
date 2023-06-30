@@ -13,15 +13,17 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 
 import com.qa.BaseTest;
+import com.qa.utils.TestUtils;
 
 public class TestListener implements ITestListener{
+	TestUtils utils = new TestUtils();
 	
 	public void onTestFailure(ITestResult result) {
 		if(result.getThrowable()!=null) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			result.getThrowable().printStackTrace(pw);
-			System.out.println(sw.toString());
+			utils.log(sw.toString());
 		}
 		
 		//To capture Screenshot
@@ -35,7 +37,7 @@ public class TestListener implements ITestListener{
 		
 		//To create directory where screenshots will be stored
 		String imagePath = "Screenshots" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_"
-				+ params.get("udid") + File.separator + base.getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName()
+				+ params.get("deviceName") + File.separator + base.getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName()
 				+ File.separator + result.getName() + ".png";
 		
 		//Image path using to add image on report

@@ -3,6 +3,7 @@ package com.qa.test;
 import com.qa.BaseTest;
 import com.qa.pages.LoginPage;
 import com.qa.pages.ProductsPage;
+import com.qa.utils.TestUtils;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -19,11 +20,12 @@ import org.testng.annotations.Test;
 public class LoginTests extends BaseTest {
 	LoginPage loginPage;
 	ProductsPage productsPage;
-	InputStream datais;
 	JSONObject loginUsers;
+	TestUtils utils = new TestUtils();
 	
 	@BeforeClass
 	public void beforeClass() throws Exception {
+		InputStream datais = null;
 		try {
 			String dataFileName = "data/LoginUsers.json";
 			datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
@@ -50,14 +52,14 @@ public class LoginTests extends BaseTest {
 
 	@BeforeMethod
 	public void beforeMethod(Method m) {
-		System.out.println("Login Test before method");
+		utils.log("Login Test before method");
 		loginPage = new LoginPage();
-		System.out.println("\n" + "****** starting test: " + m.getName() + "*******" + "\n");
+		utils.log("\n" + "****** starting test: " + m.getName() + "*******" + "\n");
 	}
 
 	@AfterMethod
 	public void afterMethod() {
-		System.out.println("Login Test after method");
+		utils.log("Login Test after method");
 	}
 
 	
@@ -67,8 +69,8 @@ public class LoginTests extends BaseTest {
 		loginPage.enterPassword(loginUsers.getJSONObject("invalidUser").getString("password"));
 		loginPage.pressLoginBtn();
 		String actualErrTxt = loginPage.getErrTxt();
-		String expectedErrTxt = strings.get("err_invalid_username_or_password");
-		System.out.println("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
+		String expectedErrTxt = getStrings().get("err_invalid_username_or_password");
+		utils.log("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
 
 		Assert.assertEquals(actualErrTxt, expectedErrTxt);
 	}
@@ -80,8 +82,8 @@ public class LoginTests extends BaseTest {
 		loginPage.pressLoginBtn();
 
 		String actualErrTxt = loginPage.getErrTxt();
-		String expectedErrTxt = strings.get("err_invalid_username_or_password");
-		System.out.println("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
+		String expectedErrTxt = getStrings().get("err_invalid_username_or_password");
+		utils.log("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
 
 		Assert.assertEquals(actualErrTxt, expectedErrTxt);
 	}
@@ -93,8 +95,8 @@ public class LoginTests extends BaseTest {
 		productsPage = loginPage.pressLoginBtn();
 
 		String actualProductTitle = productsPage.getTilte();
-		String expectedProductTitle = strings.get("product_title");
-		System.out.println("actual product title - " + actualProductTitle + "\n" + "expected product title -- "
+		String expectedProductTitle = getStrings().get("product_title");
+		utils.log("actual product title - " + actualProductTitle + "\n" + "expected product title -- "
 				+ expectedProductTitle);
 		Assert.assertEquals(actualProductTitle, expectedProductTitle);
 

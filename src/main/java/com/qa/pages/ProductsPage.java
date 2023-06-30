@@ -3,11 +3,14 @@ package com.qa.pages;
 import org.openqa.selenium.WebElement;
 
 import com.qa.MenuPage;
+import com.qa.utils.TestUtils;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 
 public class ProductsPage extends MenuPage {
+	TestUtils utils = new TestUtils();
+	
 	@AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Cart drop zone\"]/android.view.ViewGroup/android.widget.TextView")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name=\"test-Toggle\"]/parent::*[1]/preceding-sibling::*[1]")
 	private WebElement productTitleTxt;
@@ -19,18 +22,25 @@ public class ProductsPage extends MenuPage {
 	private WebElement SLBPrice;
 	
 	public String getTilte() {
-		return getText(productTitleTxt);
+		String title = getText(productTitleTxt);
+		utils.log("Product Page title is " + title);
+		return title;
 	}
 	
 	public String getSLBTitle() {
-		return getText(SLBTitle);
+		String title = getText(SLBTitle);
+		utils.log("title is " +title);
+		return title;
 	}
 	
 	public String getSLBPrice() {
-		return getText(SLBPrice);
+		String price = getText(SLBPrice);
+		utils.log("price is "+ price);
+		return price;
 	}
 	
 	public ProductDetailsPage pressSLBTitle() {
+		utils.log("Press slb title link");
 		click(SLBTitle);
 		return new ProductDetailsPage();
 	}
