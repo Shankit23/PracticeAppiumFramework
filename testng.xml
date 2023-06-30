@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite parallel="false" name="Suite">
-	<listeners>
-		<listener class-name="com.qa.listeners.TestListener"/>
-	</listeners>
-  <test name="Test">
-	  <parameter name= "emulator" value= "True"/>
-	  <parameter name="platformName" value="Android"/>
-	  <parameter name="platformVersion" value="12.0"/>
-	  <parameter name="udid" value="emulator-5554"/>
-    <classes>
-   <class name="com.qa.test.LoginTests"/>
-  <methods>
-		  <include name = "invalidUserName"/>
-	  </methods>
-	 <!-- <class name="com.qa.test.ProductTests"/>-->
-<!--     <methods>-->
-<!--		  <include name = "validateProductOnProductDetailsPage"/>-->
-<!--	  </methods>-->
-    </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+<suite parallel="tests" name="Suite">
+	<test name="Pixel_3a">
+		<listeners>
+			<listener class-name="com.qa.listeners.TestListener" />
+		</listeners>
+		<parameter name="emulator" value="True" />
+		<parameter name="platformName" value="Android" />
+		<parameter name="deviceName" value="Pixel_3a" />
+		<!--	  <parameter name="platformVersion" value="12.0"/>-->
+		<parameter name="udid" value="emulator-5554" />
+		<parameter name="systemPort" value="10000" />
+		<parameter name="chromeDriverPort" value="11000" />
+		<classes>
+			<class name="com.qa.test.LoginTests" />
+		</classes>
+	</test> <!--
+	Test -->
+	<test name="Nokia_3.4">
+		<listeners>
+			<listener class-name="com.qa.listeners.TestListener" />
+		</listeners>
+		<parameter name="emulator" value="false" />
+		<parameter name="platformName" value="Android" />
+		<parameter name="deviceName" value="Nokia_3.4" />
+		<!--	  <parameter name="platformVersion" value="12.0"/>-->
+		<parameter name="udid" value="PD21BDS464062159" />
+		<parameter name="systemPort" value="10002" />
+		<parameter name="chromeDriverPort" value="11002" />
+		<classes>
+			<class name="com.qa.test.LoginTests" />
+		</classes>
+	</test> <!--
+	Test -->
+<!--	<test name="iOS">
+		<listeners>
+			<listener class-name="com.qa.listeners.TestListener" />
+		</listeners>
+	    <parameter name= "emulator" value= "True"/>
+		<parameter name="platformName" value="Android" />
+		<parameter name="deviceName" value="iPhone XS Max" />
+		<parameter name="platformVersion" value="12.0"/>
+		<parameter name="udid" value="emulator-5554" />
+		<parameter name="wdaLocalPort" value="10001" />
+		<parameter name="webKitDebugProxyPort" value="11001" />
+		<classes>
+			<class name="com.qa.test.LoginTests" />
+		</classes>
+	</test> -->
+	<!--Test -->
+</suite> <!--
+Suite -->

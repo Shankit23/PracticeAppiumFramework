@@ -3,10 +3,13 @@ package com.qa.pages;
 import org.openqa.selenium.WebElement;
 
 import com.qa.MenuPage;
+import com.qa.utils.TestUtils;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
 public class ProductDetailsPage extends MenuPage{
+	TestUtils utils = new TestUtils();
+	
 	@AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Description\"]/android.widget.TextView[1]")
 	private WebElement SLBTitle;
 	
@@ -20,11 +23,15 @@ public class ProductDetailsPage extends MenuPage{
 //	private WebElement SLBPrice;
 	
 	public String getSLBTitle() {
-		return getText(SLBTitle);
+		String title = getText(SLBTitle);
+		utils.log("title is - " + title);
+		return title;
 	}
 	
 	public String getSLBTxt() {
-		return getText(SLBTxt);
+		String txt = getText(SLBTxt);
+		utils.log("Text is " +txt);
+		return txt;
 	}
 	
 //	public String getSLBPrice() {
@@ -34,10 +41,13 @@ public class ProductDetailsPage extends MenuPage{
 //	}
 //	
 	public String scrollToSLBPriceAnsGetSLBPrice() {
-		return getText(scrollToElement());	
+		String price = getText(scrollToElement());
+		utils.log("price is" +price);
+		return 	price;
 	}
 	
 	public ProductsPage pressBackToProductsBtn() {
+		utils.log("Clicking on the Back to Product Button");
 		click(backToProductsBtn);
 		return new ProductsPage();
 	}
