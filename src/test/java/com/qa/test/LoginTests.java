@@ -52,14 +52,14 @@ public class LoginTests extends BaseTest {
 
 	@BeforeMethod
 	public void beforeMethod(Method m) {
-		utils.log("Login Test before method");
+		utils.log().info("Login Test before method");
 		loginPage = new LoginPage();
-		utils.log("\n" + "****** starting test: " + m.getName() + "*******" + "\n");
+		utils.log().info("\n" + "****** starting test: " + m.getName() + "*******" + "\n");
 	}
 
 	@AfterMethod
 	public void afterMethod() {
-		utils.log("Login Test after method");
+		utils.log().info("Login Test after method");
 	}
 
 	
@@ -70,7 +70,7 @@ public class LoginTests extends BaseTest {
 		loginPage.pressLoginBtn();
 		String actualErrTxt = loginPage.getErrTxt();
 		String expectedErrTxt = getStrings().get("err_invalid_username_or_password");
-		utils.log("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
+		utils.log().info("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
 
 		Assert.assertEquals(actualErrTxt, expectedErrTxt);
 	}
@@ -83,7 +83,7 @@ public class LoginTests extends BaseTest {
 
 		String actualErrTxt = loginPage.getErrTxt();
 		String expectedErrTxt = getStrings().get("err_invalid_username_or_password");
-		utils.log("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
+		utils.log().info("actual error txt -" + actualErrTxt + "\n" + "expected error txt -" + expectedErrTxt);
 
 		Assert.assertEquals(actualErrTxt, expectedErrTxt);
 	}
@@ -96,7 +96,7 @@ public class LoginTests extends BaseTest {
 
 		String actualProductTitle = productsPage.getTilte();
 		String expectedProductTitle = getStrings().get("product_title");
-		utils.log("actual product title - " + actualProductTitle + "\n" + "expected product title -- "
+		utils.log().info("actual product title - " + actualProductTitle + "\n" + "expected product title -- "
 				+ expectedProductTitle);
 		Assert.assertEquals(actualProductTitle, expectedProductTitle);
 

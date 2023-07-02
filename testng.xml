@@ -22,9 +22,9 @@
 		</listeners>
 		<parameter name="emulator" value="false" />
 		<parameter name="platformName" value="Android" />
-		<parameter name="deviceName" value="Nokia_3.4" />
+		<parameter name="deviceName" value="Samsung" />
 		<!--	  <parameter name="platformVersion" value="12.0"/>-->
-		<parameter name="udid" value="PD21BDS464062159" />
+		<parameter name="udid" value="RZ8NA14Q1QP" />
 		<parameter name="systemPort" value="10002" />
 		<parameter name="chromeDriverPort" value="11002" />
 		<classes>
