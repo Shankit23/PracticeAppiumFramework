@@ -13,7 +13,7 @@ public class SettingsPage extends BaseTest{
 	private WebElement logoutBtn;
 	
 	public LoginPage pressLogoutBtn() {
-		utils.log("Press Logout button");
+		utils.log().info("Press Logout button");
 		click(logoutBtn);
 		return new LoginPage();
 	}

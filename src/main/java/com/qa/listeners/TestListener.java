@@ -23,7 +23,7 @@ public class TestListener implements ITestListener{
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			result.getThrowable().printStackTrace(pw);
-			utils.log(sw.toString());
+			utils.log().info(sw.toString());
 		}
 		
 		//To capture Screenshot

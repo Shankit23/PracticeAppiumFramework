@@ -35,6 +35,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.apache.logging.log4j.ThreadContext;
 import org.codehaus.plexus.util.Base64;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -160,6 +161,15 @@ public class BaseTest {
 		InputStream stringsis = null;
 		Properties props;
 		AppiumDriver driver;
+		
+		//logging directory code
+		String strFile = "logs" + File.separator + platformName + "_" + deviceName;
+		File logFile = new File(strFile);
+		if(!logFile.exists()) {
+			logFile.mkdirs();
+		}
+		ThreadContext.put("ROUTINGKEY", strFile);
+		
 		try {
 			props = new Properties();
 			String propFileName = "config.properties";// Write path
@@ -190,11 +200,11 @@ public class BaseTest {
 				if (emulator.equalsIgnoreCase("true")) {
 					caps.setCapability("avd", "Pixel_3a_API_33_x86_64");
 				}
-				utils.log(appiumURL + "");
+				utils.log().info(appiumURL + "");
 //				String appURL = getClass().getResource(props.getProperty("androidAppLocation")).getPath().substring(1);
 				String androidAppURL = getClass().getResource(props.getProperty("androidAppLocation")).getFile()
 						.substring(1);
-//				utils.log(androidAppURL);
+//				utils.log().info(androidAppURL);
 //			    String appURL = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "app" + File.separator + "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
 				caps.setCapability(MobileCapabilityType.APP, androidAppURL);
 				driver = new AndroidDriver(appiumURL, caps);
@@ -204,9 +214,9 @@ public class BaseTest {
 				caps.setCapability("bundleId", props.getProperty("iOSBundleId"));
 				caps.setCapability("wdaLocalPort", wdaLocalPort);
 				caps.setCapability("webKitDebugProxyPort", webKitDebugProxyPort);
-				utils.log(appiumURL + "");
+				utils.log().info(appiumURL + "");
 				String appURL = getClass().getResource(props.getProperty("iOSAppLocation")).getFile().substring(1);
-//				utils.log(appURL);
+//				utils.log().info(appURL);
 //			String appURL = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "app" + File.separator + "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
 				caps.setCapability(MobileCapabilityType.APP, appURL);
 				driver = new IOSDriver(appiumURL, caps);
