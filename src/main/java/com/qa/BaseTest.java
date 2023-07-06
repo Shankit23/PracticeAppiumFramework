@@ -8,6 +8,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.screenrecording.CanRecordScreen;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
 
 import org.testng.annotations.BeforeTest;
@@ -21,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
@@ -33,8 +35,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.apache.logging.log4j.ThreadContext;
 import org.codehaus.plexus.util.Base64;
 import org.openqa.selenium.WebElement;
@@ -48,6 +52,7 @@ public class BaseTest {
 	protected static ThreadLocal<String> platform = new ThreadLocal<String>();
 	protected static ThreadLocal<String> dateTime = new ThreadLocal<String>();
 	protected static ThreadLocal<String> deviceName = new ThreadLocal<String>();
+	private static AppiumDriverLocalService server;
 	TestUtils utils = new TestUtils();
 
 //	URI uri;
@@ -126,7 +131,7 @@ public class BaseTest {
 		Map<String, String> params = result.getTestContext().getCurrentXmlTest().getAllParameters();
 
 		String mediaPath = "videos" + File.separator + params.get("platformName") +  "_" + params.get("deviceName") + File.separator + getDateTime() + File.separator
-				+ result.getTestClass().getRealClass().getSimpleName() + File.separator + result.getName() + ".png";
+				+ result.getTestClass().getRealClass().getSimpleName();
 
 		File videoDir = new File(mediaPath);
 
@@ -143,6 +148,43 @@ public class BaseTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@BeforeSuite
+	public void beforeSuite() throws Exception, Exception{
+		ThreadContext.put("ROUTINGKEY", "ServerLogs");
+		server = getAppiumServiceDefault();
+		if(!checkIfAppiumServerIsRunning(4723)) {
+			utils.log().info("server is not running");
+			server.start();
+			server.clearOutPutStreams();
+			utils.log().info("Server is started successfully.");
+		} else {
+			utils.log().info("Server is already running");
+		}
+	}
+	
+	@AfterSuite
+	public void afterSuite() {
+		server.stop();
+		utils.log().info("Server is stopped successfully");
+	}
+	
+	public AppiumDriverLocalService getAppiumServiceDefault() {
+		return AppiumDriverLocalService.buildDefaultService();
+	}
+	
+	public boolean checkIfAppiumServerIsRunning(int port) throws Exception {
+		boolean isAppiumServerRunning = false;
+		ServerSocket socket;
+		try {
+			socket = new ServerSocket(port);
+			socket.close();
+		} catch (IOException e) {
+			System.out.println("1");
+			isAppiumServerRunning = true;
+		}
+		return isAppiumServerRunning;
 	}
 
 	@Parameters({ "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriverPort", "wdaLocalPort",
