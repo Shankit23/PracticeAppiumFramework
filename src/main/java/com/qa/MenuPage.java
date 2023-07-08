@@ -14,8 +14,7 @@ public class MenuPage extends BaseTest{
 	private WebElement settingsBtn;
 	
 	public SettingsPage pressSettingsBtn() {
-		utils.log().info("Press Settings Button");
-		click(settingsBtn);
+		click(settingsBtn, "Press Settings Button");
 		return new SettingsPage();
 	}
 

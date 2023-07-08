@@ -22,26 +22,22 @@ public class ProductsPage extends MenuPage {
 	private WebElement SLBPrice;
 	
 	public String getTilte() {
-		String title = getText(productTitleTxt);
-		utils.log().info("Product Page title is " + title);
+		String title = getText(productTitleTxt, "Product Page title is ");
 		return title;
 	}
 	
 	public String getSLBTitle() {
-		String title = getText(SLBTitle);
-		utils.log().info("title is " +title);
+		String title = getText(SLBTitle, "title is ");
 		return title;
 	}
 	
 	public String getSLBPrice() {
-		String price = getText(SLBPrice);
-		utils.log().info("price is "+ price);
+		String price = getText(SLBPrice, "price is ");
 		return price;
 	}
 	
 	public ProductDetailsPage pressSLBTitle() {
-		utils.log().info("Press slb title link");
-		click(SLBTitle);
+		click(SLBTitle, "Press slb title link");
 		return new ProductDetailsPage();
 	}
 

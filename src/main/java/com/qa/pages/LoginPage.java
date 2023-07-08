@@ -28,21 +28,18 @@ public class LoginPage extends BaseTest {
 
 	public LoginPage enterUserName(String username) {
 		clear(usernameTxtFld);
-		utils.log().info("login with " + username);
-		sendKeys(usernameTxtFld, username);
+		sendKeys(usernameTxtFld, username, "login with " + username);
 		return this;
 	}
 
 	public LoginPage enterPassword(String password) {
 		clear(passwordTxtFld);
-		utils.log().info("Entering Password " + password);
-		sendKeys(passwordTxtFld, password);
+		sendKeys(passwordTxtFld, password, "Entering Password " + password);
 		return this;
 	}
 
 	public ProductsPage pressLoginBtn() {
-		utils.log().info("Press Login button");
-		click(loginBtn);
+		click(loginBtn, "Press Login button");
 		return new ProductsPage();
 	}
 	
@@ -53,8 +50,7 @@ public class LoginPage extends BaseTest {
 	}
 
 	public String getErrTxt() {
-		String err = getText(errTxt);
-		utils.log().info("error text is - " + err);
+		String err = getText(errTxt, "error text is - ");
 		return err;
 	}
 
