@@ -15,6 +15,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import com.aventstack.extentreports.Status;
+import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
 
 import java.io.File;
@@ -290,13 +292,17 @@ public class BaseTest {
 		e.clear();
 	}
 
-	public void click(WebElement e) {
+	public void click(WebElement e, String msg) {
 		waitForVisibility(e);
+		utils.log().info(msg);
+		ExtentReport.getTest().log(Status.INFO, msg);
 		e.click();
 	}
 
-	public void sendKeys(WebElement e, String txt) {
+	public void sendKeys(WebElement e, String txt, String msg) {
 		waitForVisibility(e);
+		utils.log().info(msg);
+		ExtentReport.getTest().log(Status.INFO, msg);
 		e.sendKeys(txt);
 	}
 
@@ -305,14 +311,19 @@ public class BaseTest {
 		return e.getAttribute(attribute);
 	}
 
-	public String getText(WebElement e) {
+	public String getText(WebElement e, String msg) {
+		String txt = null;
 		switch (EnumConstants.valueOf(getPlatform())) {
 		case Android:
-			return getAttribute(e, "text");
+			txt = getAttribute(e, "text");
+			break;
 		case iOS:
-			return getAttribute(e, "label");
+			txt = getAttribute(e, "label");
+			break;
 		}
-		return null;
+		utils.log().info(msg + txt);
+		ExtentReport.getTest().log(Status.INFO, msg);
+		return txt;
 	}
 
 	public void closeApp() {

@@ -23,14 +23,12 @@ public class ProductDetailsPage extends MenuPage{
 //	private WebElement SLBPrice;
 	
 	public String getSLBTitle() {
-		String title = getText(SLBTitle);
-		utils.log().info("title is - " + title);
+		String title = getText(SLBTitle, "title is - ");
 		return title;
 	}
 	
 	public String getSLBTxt() {
-		String txt = getText(SLBTxt);
-		utils.log().info("Text is " +txt);
+		String txt = getText(SLBTxt, "Text is ");
 		return txt;
 	}
 	
@@ -41,14 +39,12 @@ public class ProductDetailsPage extends MenuPage{
 //	}
 //	
 	public String scrollToSLBPriceAnsGetSLBPrice() {
-		String price = getText(scrollToElement());
-		utils.log().info("price is" +price);
+		String price = getText(scrollToElement(), "price is");
 		return 	price;
 	}
 	
 	public ProductsPage pressBackToProductsBtn() {
-		utils.log().info("Clicking on the Back to Product Button");
-		click(backToProductsBtn);
+		click(backToProductsBtn, "Clicking on the Back to Product Button");
 		return new ProductsPage();
 	}
 
